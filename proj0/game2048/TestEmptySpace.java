@@ -54,6 +54,7 @@ public class TestEmptySpace {
         };
 
         b = new Board(rawVals, 0);
+
         assertTrue("Bottom row is empty\n" + b,
                 Model.emptySpaceExists(b));
     }
@@ -120,7 +121,7 @@ public class TestEmptySpace {
         };
 
         b = new Board(rawVals, 0);
-
+        boolean ret_test=Model.emptySpaceExists(b);
         assertFalse("Board is full\n" + b, Model.emptySpaceExists(b));
     }
 

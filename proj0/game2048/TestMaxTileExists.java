@@ -38,7 +38,7 @@ public class TestMaxTileExists {
         };
 
         b = new Board(rawVals, 0);
-
+        b.move(1,1,b.tile(1,1));
         assertFalse("No 2048 tile on board\n" + b, Model.maxTileExists(b));
     }
 
@@ -101,7 +101,7 @@ public class TestMaxTileExists {
         };
 
         b = new Board(rawVals, 0);
-
+        boolean result_test=Model.maxTileExists(b);
         assertTrue("One 2048 tile on board\n" + b,
                 Model.maxTileExists(b));
     }
