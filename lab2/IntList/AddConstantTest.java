@@ -27,9 +27,9 @@ public class AddConstantTest {
     }
     @Test
     public void testAddConstant3() {
-        IntList lst = IntList.of();
-        IntListExercises.addConstant(lst, 0);
-        assertEquals("0", lst.toString());
+        IntList lst = IntList.of(3,3,3,3,3,3);
+        IntListExercises.addConstant(lst,-3 );
+        assertEquals("3", lst.toString());
     }
 
 }

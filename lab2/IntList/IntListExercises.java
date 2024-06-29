@@ -9,6 +9,10 @@ public class IntListExercises {
      * @param lst IntList from Lecture
      */
     public static void addConstant(IntList lst, int c) {
+        if (lst==null) {
+            System.out.println("ERROR! lst is null");
+            System.exit(1);
+        }
         int IntListSize = lst.size();
         IntList head = lst;
         for (int i = 0; i < IntListSize; i++) {
