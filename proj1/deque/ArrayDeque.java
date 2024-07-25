@@ -6,13 +6,12 @@ public class ArrayDeque<listType> {
     private int nextFirst;
     private int nextLast;
 
-    private int UnitSize;
+    private int UnitSize=8;
     private final int sizeMultiplier =10;
 
     private final int minUnitSize=8;
 
     public ArrayDeque(){
-        UnitSize=8;
         items=(listType[]) new Object[UnitSize];
         for (int i=0;i< items.length;i+=1){
             items[i]=null;
@@ -83,7 +82,10 @@ public class ArrayDeque<listType> {
     }
 
     public listType removeFirst(){
-        if (size-1<UnitSize/sizeMultiplier*4){
+        if (size<=0){
+            return null;
+        }
+        if (size-1<UnitSize/sizeMultiplier*4 && UnitSize>8){
             extractSize();
         }
         nextFirst+=1;
@@ -97,7 +99,10 @@ public class ArrayDeque<listType> {
     }
 
     public listType removeLast(){
-        if (size-1<UnitSize/sizeMultiplier*4){
+        if (size<=0){
+            return null;
+        }
+        if (size-1<UnitSize/sizeMultiplier*4 && UnitSize>8){
             extractSize();
         }
         nextLast-=1;
@@ -116,6 +121,10 @@ public class ArrayDeque<listType> {
     }
 
     public listType get(int index){
+        index=nextFirst+1+index;
+        if (index>=UnitSize){
+            index=index-UnitSize;
+        }
         return items[index];
     }
 
@@ -150,7 +159,6 @@ public class ArrayDeque<listType> {
 
     public void printDeque(){
         int first=nextFirst+1;
-        int last=nextLast-1;
         if (first>= items.length){
             first=0;
         }
