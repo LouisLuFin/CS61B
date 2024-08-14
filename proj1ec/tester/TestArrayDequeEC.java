@@ -14,7 +14,7 @@ public class TestArrayDequeEC {
         int randNum=StdRandom.uniform(3,6);
         testDeque.addFirst(randNum);
         testSol.addFirst(randNum);
-        String outputString="addFirst"+ randNum+"\n";
+        String outputString="addFirst("+ randNum+")\n";
         int switchBoard;
         int testSize=1;
 
