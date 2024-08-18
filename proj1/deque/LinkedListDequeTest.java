@@ -136,7 +136,7 @@ public class LinkedListDequeTest {
         testLLDeque.addFirst(6);
         testLLDeque.insert(8,1);
         testLLDeque.printDeque();
-        testLLDeque.printNode(testLLDeque.getRecursive(3));
+        testLLDeque.getRecursive(3);
     }
 
 

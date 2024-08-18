@@ -101,13 +101,18 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
 
-    public myDequeNode getRecursive(int idx) {
+    private myDequeNode getRecursiveNode(int idx) {
         if (idx == 0) {
             return this.frontSentinel.next;
         } else {
-            return getRecursive(idx - 1).next;
+            return getRecursiveNode(idx - 1).next;
         }
     }
+
+    public T getRecursive(int idx){
+        return getRecursiveNode(idx).item;
+    }
+
 
     private int translateNegativeIndex(int idx) {
         if (idx > 0) {
