@@ -1,6 +1,8 @@
 package deque;
 
-public class ArrayDeque<listType> {
+import java.util.Iterator;
+
+public class ArrayDeque<listType> implements Iterable<listType>,Deque<listType>{
     private listType[] items;
     private int size;
     private int nextFirst;
@@ -81,6 +83,7 @@ public class ArrayDeque<listType> {
         UnitSize = UnitSize / sizeMultiplier*6;
     }
 
+    @Override
     public listType removeFirst(){
         if (size<=0){
             return null;
@@ -98,6 +101,7 @@ public class ArrayDeque<listType> {
         return ret_val;
     }
 
+    @Override
     public listType removeLast(){
         if (size<=0){
             return null;
@@ -115,11 +119,12 @@ public class ArrayDeque<listType> {
         return ret_val;
     }
 
-
+    @Override
     public int size(){
         return size;
     }
 
+    @Override
     public listType get(int index){
         index=nextFirst+1+index;
         if (index>=UnitSize){
@@ -128,10 +133,8 @@ public class ArrayDeque<listType> {
         return items[index];
     }
 
-    public boolean isEmpty(){
-        return size()==0;
-    }
 
+    @Override
     public void addLast(listType added){
         if (size==UnitSize){
             this.expandSize(sizeMultiplier *UnitSize);
@@ -144,6 +147,7 @@ public class ArrayDeque<listType> {
         }
     }
 
+    @Override
     public void addFirst(listType added){
         if (size==UnitSize){
             this.expandSize(sizeMultiplier *UnitSize);
@@ -157,6 +161,7 @@ public class ArrayDeque<listType> {
     }
 
 
+    @Override
     public void printDeque(){
         int first=nextFirst+1;
         if (first>= items.length){
@@ -172,6 +177,69 @@ public class ArrayDeque<listType> {
             }
         }
         System.out.println("\n==============");
+    }
+
+
+    @Override
+    public Iterator<listType> iterator(){return new ArrayDequeIterator();}
+
+    private class ArrayDequeIterator implements Iterator<listType>{
+        private int currPtr;
+        public ArrayDequeIterator(){
+            currPtr=nextFirst+1;
+            if (currPtr>= items.length){
+                currPtr=0;
+            }
+        }
+        public boolean hasNext(){return currPtr<size;}
+
+        public listType next(){
+            listType returnItem=items[currPtr];
+            currPtr+=1;
+            if (currPtr>=items.length){
+                currPtr=0;
+            }
+            return returnItem;
+        }
+
+    }
+
+    public boolean equals(Object o){
+        if (!(o instanceof ArrayDeque)){
+            return false;
+        }else {
+            ArrayDeque<listType> o1=(ArrayDeque<listType>) o;
+            if (o1.size()!=size){
+                return false;
+            }
+        }
+        int firstSelf=nextFirst+1;
+        if (firstSelf>= items.length){
+            firstSelf=0;
+        }
+        ArrayDeque<listType> o1=(ArrayDeque<listType>) o;
+        int curridxSelf=firstSelf;
+
+        int ofirst=o1.nextFirst+1;
+        if (ofirst>= items.length){
+            ofirst=0;
+        }
+        int curridx_o=ofirst;
+        for (int i=0;i<size;i+=1){
+            if (items[curridxSelf].equals(o1.items[curridx_o])){
+            curridxSelf+=1;
+            curridx_o+=1;
+                if (curridxSelf>=items.length){
+                    curridxSelf=0;
+                }
+                if (curridx_o>=items.length){
+                    curridx_o=0;
+                }
+            }else {
+                return false;
+            }
+        }
+        return true;
     }
 
 }

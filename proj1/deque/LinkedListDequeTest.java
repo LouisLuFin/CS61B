@@ -139,4 +139,22 @@ public class LinkedListDequeTest {
         testLLDeque.printNode(testLLDeque.getRecursive(3));
     }
 
+
+
+    @Test
+    public void testequal(){
+        LinkedListDeque<Integer> a=new LinkedListDeque<>();
+        LinkedListDeque<Integer> b=new LinkedListDeque<>();
+        for (int i=0;i<10000;i+=1){
+            a.addFirst(i);
+            b.addFirst(i);
+        }
+        assertEquals("not equal",a.equals(b),true);
+
+
+
+
+
+
+    }
 }
