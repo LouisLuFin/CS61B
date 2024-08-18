@@ -4,9 +4,9 @@ import org.junit.Test;
 
 public class MaxArrayTest {
     @Test
-    public void testMaxArray(){
-        MaxArrayComparator<Integer> c=new MaxArrayComparator<>();
-        MaxArrayDeque<Integer> ad=new MaxArrayDeque<>(c);
+    public void testMaxArray() {
+        MaxArrayComparator<Integer> c = new MaxArrayComparator<>();
+        MaxArrayDeque<Integer> ad = new MaxArrayDeque<>(c);
         ad.addFirst(3);
         ad.addFirst(358);
         ad.addFirst(8);

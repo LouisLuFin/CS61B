@@ -2,27 +2,10 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<listType> implements Iterable<listType>,Deque<listType> {
+public class LinkedListDeque<listType> implements Iterable<listType>, Deque<listType> {
     private final myDequeNode frontSentinel;
     private final myDequeNode backSentinel;
     private int size;
-
-    private class myDequeNode {
-        public myDequeNode prev;
-        public listType item;
-        public myDequeNode next;
-
-        public myDequeNode(listType i, myDequeNode n, myDequeNode p) {
-            item = i;
-            next = n;
-            prev = p;
-        }
-
-    }
-
-    public void printNode(myDequeNode node) {
-        System.out.println(node.item);
-    }
 
     public LinkedListDeque() {
         frontSentinel = new myDequeNode((listType) "beginning", null, null);
@@ -31,11 +14,14 @@ public class LinkedListDeque<listType> implements Iterable<listType>,Deque<listT
         size = 0;
     }
 
+    public void printNode(myDequeNode node) {
+        System.out.println(node.item);
+    }
+
     @Override
     public int size() {
         return size;
     }
-
 
     @Override
     public void addFirst(listType item) {
@@ -144,33 +130,46 @@ public class LinkedListDeque<listType> implements Iterable<listType>,Deque<listT
         System.out.println("\n=============");
     }
 
-
-    public boolean equals(Object o){
-        if (!(o instanceof LinkedListDeque)){
+    public boolean equals(Object o) {
+        if (!(o instanceof LinkedListDeque)) {
             return false;
-        }else {
-            LinkedListDeque<listType> o1=(LinkedListDeque<listType>) o;
-            if (o1.size()!=size){
+        } else {
+            LinkedListDeque<listType> o1 = (LinkedListDeque<listType>) o;
+            if (o1.size() != size) {
                 return false;
             }
         }
-        LinkedListDeque<listType> o1=(LinkedListDeque<listType>) o;
-        myDequeNode currNodeSelf=frontSentinel.next;
-        for (int i=0;i<size;i+=1){
-            if (!(currNodeSelf.item.equals(o1.get(i)))){
+        LinkedListDeque<listType> o1 = (LinkedListDeque<listType>) o;
+        myDequeNode currNodeSelf = frontSentinel.next;
+        for (int i = 0; i < size; i += 1) {
+            if (!(currNodeSelf.item.equals(o1.get(i)))) {
                 return false;
             }
-            currNodeSelf=currNodeSelf.next;
+            currNodeSelf = currNodeSelf.next;
         }
         return true;
     }
+
     @Override
     public Iterator<listType> iterator() {
         return new LinkedListDequeIterator();
     }
 
+    private class myDequeNode {
+        public myDequeNode prev;
+        public listType item;
+        public myDequeNode next;
+
+        public myDequeNode(listType i, myDequeNode n, myDequeNode p) {
+            item = i;
+            next = n;
+            prev = p;
+        }
+
+    }
+
     private class LinkedListDequeIterator implements Iterator<listType> {
-        private myDequeNode currPtr;
+        private final myDequeNode currPtr;
 
         public LinkedListDequeIterator() {
             currPtr = frontSentinel.next;
@@ -187,7 +186,6 @@ public class LinkedListDeque<listType> implements Iterable<listType>,Deque<listT
             return null;
         }
     }
-
 
 
 }

@@ -152,9 +152,5 @@ public class LinkedListDequeTest {
         assertEquals("not equal",a.equals(b),true);
 
 
-
-
-
-
     }
 }
