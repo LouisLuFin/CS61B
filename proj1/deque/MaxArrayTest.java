@@ -21,6 +21,11 @@ public class MaxArrayTest {
         ad.max();
         System.out.println(ad.max());
         ad.printDeque();
+
+        MaxArrayComparator<String> a = new MaxArrayComparator<>();
+
+
+
     }
 
 }

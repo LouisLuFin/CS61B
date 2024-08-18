@@ -2,17 +2,17 @@ package deque;
 
 import java.util.Iterator;
 
-public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     private final int sizeMultiplier = 10;
     private final int minUnitSize = 8;
-    private listType[] items;
+    private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
     private int UnitSize = 8;
 
     public ArrayDeque() {
-        items = (listType[]) new Object[UnitSize];
+        items = (T[]) new Object[UnitSize];
         for (int i = 0; i < items.length; i += 1) {
             items[i] = null;
         }
@@ -25,7 +25,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
         if (size != UnitSize) {
             throw new IllegalArgumentException("items not full yet, should not call expandSize()");
         }
-        listType[] a = (listType[]) new Object[capacity];
+        T[] a = (T[]) new Object[capacity];
         for (int i = 0; i < a.length; i += 1) {
             a[i] = null;
         }
@@ -57,7 +57,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
             throw new IllegalArgumentException("capacity below minimum Unit Size or larger than 60% of original length, should not call extractSize()");
         }
 
-        listType[] a = (listType[]) new Object[capacity];
+        T[] a = (T[]) new Object[capacity];
         for (int i = 0; i < a.length; i += 1) {
             a[i] = null;
         }
@@ -82,7 +82,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
     }
 
     @Override
-    public listType removeFirst() {
+    public T removeFirst() {
         if (size <= 0) {
             return null;
         }
@@ -93,14 +93,14 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
         if (nextFirst >= UnitSize) {
             nextFirst = 0;
         }
-        listType ret_val = items[nextFirst];
+        T ret_val = items[nextFirst];
         items[nextFirst] = null;
         size -= 1;
         return ret_val;
     }
 
     @Override
-    public listType removeLast() {
+    public T removeLast() {
         if (size <= 0) {
             return null;
         }
@@ -111,7 +111,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
         if (nextLast < 0) {
             nextLast = items.length - 1;
         }
-        listType ret_val = items[nextLast];
+        T ret_val = items[nextLast];
         items[nextLast] = null;
         size -= 1;
         return ret_val;
@@ -123,7 +123,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
     }
 
     @Override
-    public listType get(int index) {
+    public T get(int index) {
         index = nextFirst + 1 + index;
         if (index >= UnitSize) {
             index = index - UnitSize;
@@ -133,7 +133,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
 
 
     @Override
-    public void addLast(listType added) {
+    public void addLast(T added) {
         if (size == UnitSize) {
             this.expandSize(sizeMultiplier * UnitSize);
         }
@@ -146,7 +146,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
     }
 
     @Override
-    public void addFirst(listType added) {
+    public void addFirst(T added) {
         if (size == UnitSize) {
             this.expandSize(sizeMultiplier * UnitSize);
         }
@@ -179,7 +179,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
 
 
     @Override
-    public Iterator<listType> iterator() {
+    public Iterator<T> iterator() {
         return new ArrayDequeIterator();
     }
 
@@ -187,7 +187,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
         if (!(o instanceof ArrayDeque)) {
             return false;
         } else {
-            ArrayDeque<listType> o1 = (ArrayDeque<listType>) o;
+            ArrayDeque<T> o1 = (ArrayDeque<T>) o;
             if (o1.size() != size) {
                 return false;
             }
@@ -196,7 +196,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
         if (firstSelf >= items.length) {
             firstSelf = 0;
         }
-        ArrayDeque<listType> o1 = (ArrayDeque<listType>) o;
+        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
         int curridxSelf = firstSelf;
 
         int ofirst = o1.nextFirst + 1;
@@ -221,7 +221,7 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
         return true;
     }
 
-    private class ArrayDequeIterator implements Iterator<listType> {
+    private class ArrayDequeIterator implements Iterator<T> {
         private int currPtr;
 
         public ArrayDequeIterator() {
@@ -235,8 +235,8 @@ public class ArrayDeque<listType> implements Iterable<listType>, Deque<listType>
             return currPtr < size;
         }
 
-        public listType next() {
-            listType returnItem = items[currPtr];
+        public T next() {
+            T returnItem = items[currPtr];
             currPtr += 1;
             if (currPtr >= items.length) {
                 currPtr = 0;

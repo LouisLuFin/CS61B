@@ -2,14 +2,14 @@ package deque;
 
 import java.util.Iterator;
 
-public class LinkedListDeque<listType> implements Iterable<listType>, Deque<listType> {
+public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     private final myDequeNode frontSentinel;
     private final myDequeNode backSentinel;
     private int size;
 
     public LinkedListDeque() {
-        frontSentinel = new myDequeNode((listType) "beginning", null, null);
-        backSentinel = new myDequeNode((listType) "ending", null, frontSentinel);
+        frontSentinel = new myDequeNode((T) "beginning", null, null);
+        backSentinel = new myDequeNode((T) "ending", null, frontSentinel);
         frontSentinel.next = backSentinel;
         size = 0;
     }
@@ -24,26 +24,26 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
     }
 
     @Override
-    public void addFirst(listType item) {
+    public void addFirst(T item) {
         this.insert(item, 0);
     }
 
     @Override
-    public void addLast(listType item) {
+    public void addLast(T item) {
         this.insert(item, size);
     }
 
     @Override
-    public listType removeFirst() {
+    public T removeFirst() {
         return this.remove(0);
     }
 
     @Override
-    public listType removeLast() {
+    public T removeLast() {
         return this.remove(-2);
     }
 
-    public void insert(listType item, int idx) {
+    public void insert(T item, int idx) {
         myDequeNode currNode = getNode(idx);
         myDequeNode prev_ptr = currNode.prev;
         myDequeNode newNode = new myDequeNode(item, currNode, prev_ptr);
@@ -52,12 +52,12 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
         size += 1;
     }
 
-    public listType remove(int idx) {
+    public T remove(int idx) {
         if (size == 0) {
             return null;
         } else {
             myDequeNode removedNode = getNode(idx);
-            listType removedItem = removedNode.item;
+            T removedItem = removedNode.item;
             myDequeNode prev_ptr = removedNode.prev;
             myDequeNode next_ptr = removedNode.next;
             prev_ptr.next = next_ptr;
@@ -93,7 +93,7 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
     }
 
     @Override
-    public listType get(int idx) {
+    public T get(int idx) {
         if (idx > size - 1) {
             return null;
         } else {
@@ -134,12 +134,12 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
         if (!(o instanceof LinkedListDeque)) {
             return false;
         } else {
-            LinkedListDeque<listType> o1 = (LinkedListDeque<listType>) o;
+            LinkedListDeque<T> o1 = (LinkedListDeque<T>) o;
             if (o1.size() != size) {
                 return false;
             }
         }
-        LinkedListDeque<listType> o1 = (LinkedListDeque<listType>) o;
+        LinkedListDeque<T> o1 = (LinkedListDeque<T>) o;
         myDequeNode currNodeSelf = frontSentinel.next;
         for (int i = 0; i < size; i += 1) {
             if (!(currNodeSelf.item.equals(o1.get(i)))) {
@@ -151,16 +151,16 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
     }
 
     @Override
-    public Iterator<listType> iterator() {
+    public Iterator<T> iterator() {
         return new LinkedListDequeIterator();
     }
 
     private class myDequeNode {
         public myDequeNode prev;
-        public listType item;
+        public T item;
         public myDequeNode next;
 
-        public myDequeNode(listType i, myDequeNode n, myDequeNode p) {
+        public myDequeNode(T i, myDequeNode n, myDequeNode p) {
             item = i;
             next = n;
             prev = p;
@@ -168,7 +168,7 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
 
     }
 
-    private class LinkedListDequeIterator implements Iterator<listType> {
+    private class LinkedListDequeIterator implements Iterator<T> {
         private final myDequeNode currPtr;
 
         public LinkedListDequeIterator() {
@@ -179,7 +179,7 @@ public class LinkedListDeque<listType> implements Iterable<listType>, Deque<list
             return (!(currPtr.next == backSentinel));
         }
 
-        public listType next() {
+        public T next() {
             if (hasNext()) {
                 return currPtr.next.item;
             }
