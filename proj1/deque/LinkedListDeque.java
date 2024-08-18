@@ -14,7 +14,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         size = 0;
     }
 
-    public void printNode(myDequeNode node) {
+    private void printNode(myDequeNode node) {
         System.out.println(node.item);
     }
 
@@ -43,7 +43,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         return this.remove(-2);
     }
 
-    public void insert(T item, int idx) {
+    private void insert(T item, int idx) {
         myDequeNode currNode = getNode(idx);
         myDequeNode prev_ptr = currNode.prev;
         myDequeNode newNode = new myDequeNode(item, currNode, prev_ptr);
@@ -52,7 +52,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         size += 1;
     }
 
-    public T remove(int idx) {
+    private T remove(int idx) {
         if (size == 0) {
             return null;
         } else {

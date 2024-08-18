@@ -15,17 +15,14 @@ public class MaxArrayComparator<T> implements Comparator<T> {
     }
 
     public <T> Double minus(T t1, T t2) {
-        if (t1 instanceof Number && t2 instanceof Number ){
-            Double ALTt1=(Double) t1;
-            Double ALTt2=(Double) t2;
+        if (t1 instanceof Number && t2 instanceof Number ) {
+            Double ALTt1 = (Double) t1;
+            Double ALTt2 = (Double) t2;
             Double all = ALTt1.doubleValue() - ALTt2.doubleValue();
             return all;
         } else {
             return 0.0;
         }
-
-
     }
-
 }
 
