@@ -15,17 +15,17 @@ public class MaxArrayComparator<T> implements Comparator<T> {
     }
 
     public <T> Double minus(T t1, T t2) {
-        if (t1 instanceof Number && t2 instanceof Number ) {
+        if (t1 instanceof Number && t2 instanceof Number) {
             Number ALTt1 = (Number) t1;
             Number ALTt2 = (Number) t2;
             Double all = ALTt1.doubleValue() - ALTt2.doubleValue();
             return all;
-        } else if (t1 instanceof String && t2 instanceof String ){
+        } else if (t1 instanceof String && t2 instanceof String) {
             String ALTt1 = (String) t1;
             String ALTt2 = (String) t2;
-            int ret=ALTt1.length()-ALTt2.length();
-            return (double)ret;
-        }else{
+            int ret = ALTt1.length() - ALTt2.length();
+            return (double) ret;
+        } else {
             return 0.0;
         }
     }

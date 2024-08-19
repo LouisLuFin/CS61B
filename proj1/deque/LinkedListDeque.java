@@ -14,6 +14,18 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         size = 0;
     }
 
+    private class myDequeNode {
+        public myDequeNode prev;
+        public T item;
+        public myDequeNode next;
+
+        public myDequeNode(T i, myDequeNode n, myDequeNode p) {
+            item = i;
+            next = n;
+            prev = p;
+        }
+    }
+
     private void printNode(myDequeNode node) {
         System.out.println(node.item);
     }
@@ -160,21 +172,9 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         return new LinkedListDequeIterator();
     }
 
-    private class myDequeNode {
-        public myDequeNode prev;
-        public T item;
-        public myDequeNode next;
-
-        public myDequeNode(T i, myDequeNode n, myDequeNode p) {
-            item = i;
-            next = n;
-            prev = p;
-        }
-
-    }
-
     private class LinkedListDequeIterator implements Iterator<T> {
-        private final myDequeNode currPtr;
+
+        private myDequeNode currPtr;
 
         public LinkedListDequeIterator() {
             currPtr = frontSentinel.next;
@@ -185,10 +185,14 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
 
         public T next() {
+            T retVal;
             if (hasNext()) {
-                return currPtr.next.item;
+                retVal=currPtr.next.item;
+                currPtr=currPtr.next;
+                return retVal;
+            }else {
+                return null;
             }
-            return null;
         }
     }
 
