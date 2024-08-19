@@ -12,17 +12,16 @@ public class MaxArrayTest {
         ad.addFirst(8);
         ad.addLast(96);
         ad.addLast(36);
-        ad.addLast(98);
+        ad.addLast(45156);
         ad.addLast(79);
         ad.addFirst(12);
         ad.addFirst(15);
         ad.addFirst(1545);
         ad.addLast(9458);
+        ad.addFirst(1545);
         ad.max();
         System.out.println(ad.max());
         ad.printDeque();
-
-        MaxArrayComparator<String> a = new MaxArrayComparator<>();
 
 
 
