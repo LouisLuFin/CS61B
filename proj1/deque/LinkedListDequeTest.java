@@ -131,12 +131,12 @@ public class LinkedListDequeTest {
         LinkedListDeque<Integer> testLLDeque=new LinkedListDeque<>();
         System.out.println(testLLDeque.size());
         System.out.println(testLLDeque.get(0));
-        testLLDeque.insert(43,0);
+        //testLLDeque.insert(43,0);
         testLLDeque.addFirst(3);
         testLLDeque.addFirst(6);
-        testLLDeque.insert(8,1);
+        //testLLDeque.insert(8,1);
         testLLDeque.printDeque();
-        testLLDeque.getRecursive(3);
+        testLLDeque.getRecursive(2);
     }
 
 

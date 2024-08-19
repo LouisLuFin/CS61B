@@ -3,16 +3,16 @@ package deque;
 import java.util.Iterator;
 
 public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
-    private final int sizeMultiplier = 10;
+    private final int sizeMultiplier = 2;
     private final int minUnitSize = 8;
     private T[] items;
     private int size;
     private int nextFirst;
     private int nextLast;
-    private int UnitSize = 8;
+    private int unitSize = 8;
 
     public ArrayDeque() {
-        items = (T[]) new Object[UnitSize];
+        items = (T[]) new Object[unitSize];
         for (int i = 0; i < items.length; i += 1) {
             items[i] = null;
         }
@@ -22,7 +22,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     private void expandSize(int capacity) {
-        if (size != UnitSize) {
+        if (size != unitSize) {
             throw new IllegalArgumentException("items not full yet, should not call expandSize()");
         }
         T[] a = (T[]) new Object[capacity];
@@ -34,7 +34,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             first = 0;
         }
         int curridx = first;
-        int destPos = (sizeMultiplier / 2 - 1) * UnitSize;
+        int destPos = (sizeMultiplier / 2 - 1) * unitSize;
         for (int i = 0; i < size; i += 1) {
             a[destPos] = items[curridx];
             curridx += 1;
@@ -44,17 +44,17 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             destPos += 1;
         }
         items = a;
-        nextFirst = (sizeMultiplier / 2 - 1) * UnitSize - 1;
+        nextFirst = (sizeMultiplier / 2 - 1) * unitSize - 1;
         nextLast = destPos;
-        UnitSize = UnitSize * sizeMultiplier;
+        unitSize = unitSize * sizeMultiplier;
     }
 
     private void extractSize() {
         int capacity;
-        if (items.length / sizeMultiplier * 6 >= minUnitSize && size < items.length / sizeMultiplier * 6) {
-            capacity = items.length / sizeMultiplier * 6;
+        if (items.length / sizeMultiplier >= minUnitSize && size < items.length / sizeMultiplier) {
+            capacity = items.length / sizeMultiplier;
         } else {
-            throw new IllegalArgumentException("capacity below minimum Unit Size or larger than 60% of original length, should not call extractSize()");
+            throw new IllegalArgumentException("capacity below minimum unitSize or larger than half of original length, should not call extractSize()");
         }
 
         T[] a = (T[]) new Object[capacity];
@@ -66,7 +66,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             first = 0;
         }
         int curridx = first;
-        int destPos = UnitSize / sizeMultiplier;
+        int destPos = unitSize / sizeMultiplier;
         for (int i = 0; i < size; i += 1) {
             a[destPos] = items[curridx];
             curridx += 1;
@@ -76,9 +76,9 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             destPos += 1;
         }
         items = a;
-        nextFirst = UnitSize / sizeMultiplier - 1;
+        nextFirst = unitSize / sizeMultiplier - 1;
         nextLast = destPos;
-        UnitSize = UnitSize / sizeMultiplier * 6;
+        unitSize = unitSize / sizeMultiplier ;
     }
 
     @Override
@@ -86,11 +86,11 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (size <= 0) {
             return null;
         }
-        if (size - 1 < UnitSize / sizeMultiplier * 4 && UnitSize > 8) {
+        if (size - 1 < unitSize / sizeMultiplier && unitSize > 8) {
             extractSize();
         }
         nextFirst += 1;
-        if (nextFirst >= UnitSize) {
+        if (nextFirst >= unitSize) {
             nextFirst = 0;
         }
         T ret_val = items[nextFirst];
@@ -104,7 +104,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (size <= 0) {
             return null;
         }
-        if (size - 1 < UnitSize / sizeMultiplier * 4 && UnitSize > 8) {
+        if (size - 1 < unitSize / sizeMultiplier && unitSize > 8) {
             extractSize();
         }
         nextLast -= 1;
@@ -125,8 +125,8 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     @Override
     public T get(int index) {
         index = nextFirst + 1 + index;
-        if (index >= UnitSize) {
-            index = index - UnitSize;
+        if (index >= unitSize) {
+            index = index - unitSize;
         }
         return items[index];
     }
@@ -134,8 +134,8 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public void addLast(T added) {
-        if (size == UnitSize) {
-            this.expandSize(sizeMultiplier * UnitSize);
+        if (size == unitSize) {
+            this.expandSize(sizeMultiplier * unitSize);
         }
         items[nextLast] = added;
         size += 1;
@@ -147,14 +147,14 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public void addFirst(T added) {
-        if (size == UnitSize) {
-            this.expandSize(sizeMultiplier * UnitSize);
+        if (size == unitSize) {
+            this.expandSize(sizeMultiplier * unitSize);
         }
         items[nextFirst] = added;
         size += 1;
         nextFirst -= 1;
         if (nextFirst < 0) {
-            nextFirst = UnitSize - 1;
+            nextFirst = unitSize - 1;
         }
     }
 
