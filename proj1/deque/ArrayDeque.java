@@ -53,7 +53,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     private void extractSize() {
         int capacity;
-        if (items.length / sizeMultiplier >= minUnitSize && size < items.length / sizeMultiplier) {
+        if (items.length / sizeMultiplier >= minUnitSize && size <= items.length / sizeMultiplier) {
             capacity = items.length / sizeMultiplier;
         } else {
             throw new IllegalArgumentException("capacity below minimum unitSize or larger than half of original length, should not call extractSize()");
@@ -90,7 +90,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (size <= 0) {
             return null;
         }
-        if (size - 1 < unitSize / sizeMultiplier && unitSize > 8) {
+        if (size - 1 < unitSize / sizeMultiplier-3 && unitSize > minUnitSize) {
             extractSize();
         }
         nextFirst += 1;
@@ -108,7 +108,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (size <= 0) {
             return null;
         }
-        if (size - 1 < unitSize / sizeMultiplier && unitSize > 8) {
+        if (size - 1 < unitSize / sizeMultiplier-3 && unitSize > minUnitSize) {
             extractSize();
         }
         nextLast -= 1;
@@ -251,7 +251,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
 
 
-    public int idxTurnAroundCheck(int idx){
+    private int idxTurnAroundCheck(int idx){
         if (idx<0){
             return items.length+idx;
         }

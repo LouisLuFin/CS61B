@@ -46,22 +46,32 @@ public class ArrayDequeTest {
     public void testArrayDeque2(){
         ArrayDeque<Integer> ad=new ArrayDeque<>();
         ad.addLast(0);
-        ad.addFirst(1);
+        ad.removeLast();
         ad.addFirst(2);
-        ad.removeLast();
-        ad.addFirst(4);
-        ad.addFirst(5);
-        ad.addFirst(6);
-        ad.addFirst(7);
-        ad.get(0);
-        ad.addFirst(9);
-        ad.removeLast();
-        ad.get(4);
+        ad.addFirst(3);
+        ad.addLast(4);
+        ad.addLast(5);
+        ad.addLast(6);
+        ad.get(3);
+        ad.addLast(8);
+        ad.addLast(9);
+        ad.addLast(10);
+        ad.addFirst(11);
         ad.addLast(12);
         ad.addLast(13);
+        ad.removeLast();
+        ad.get(5);
+        ad.removeFirst();
+        ad.addFirst(17);
+        ad.addLast(18);
+        ad.removeLast();
+        ad.removeLast();
+        ad.removeFirst();
+        ad.get(7);
         ad.printDeque();
-        ad.addFirst(14);
+        ad.removeFirst();
     }
 }
+
 
 
