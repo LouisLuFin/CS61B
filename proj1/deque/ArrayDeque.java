@@ -188,14 +188,17 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     public boolean equals(Object o) {
-        Deque<T> o1=null;
+        Deque<T> o1;
         if (!(o instanceof Deque)) {
             return false;
-        } else if (o instanceof ArrayDeque){
-            o1=(ArrayDeque) o;
+        } else if (o instanceof ArrayDeque) {
+            o1 = (ArrayDeque) o;
         } else if (o instanceof LinkedListDeque) {
-            o1=(LinkedListDeque) o;
+            o1 = (LinkedListDeque) o;
+        } else {
+            return false;
         }
+
         if (o1.size() != size) {
             return false;
         }
