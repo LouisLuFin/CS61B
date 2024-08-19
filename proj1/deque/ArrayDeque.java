@@ -46,6 +46,8 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         items = a;
         nextFirst = (sizeMultiplier / 2 - 1) * unitSize - 1;
         nextLast = destPos;
+        nextFirst=idxTurnAroundCheck(nextFirst);
+        nextLast=idxTurnAroundCheck(nextLast);
         unitSize = unitSize * sizeMultiplier;
     }
 
@@ -78,6 +80,8 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         items = a;
         nextFirst = unitSize / sizeMultiplier - 1;
         nextLast = destPos;
+        nextFirst=idxTurnAroundCheck(nextFirst);
+        nextLast=idxTurnAroundCheck(nextLast);
         unitSize = unitSize / sizeMultiplier ;
     }
 
@@ -244,6 +248,17 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             return returnItem;
         }
 
+    }
+
+
+    public int idxTurnAroundCheck(int idx){
+        if (idx<0){
+            return items.length+idx;
+        }
+        if (idx> items.length-1){
+            return idx-items.length;
+        }
+        return idx;
     }
 
 }

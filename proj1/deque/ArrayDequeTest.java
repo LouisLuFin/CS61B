@@ -41,4 +41,27 @@ public class ArrayDequeTest {
         }
         System.out.println(ad.equals(adAlt));
     }
+
+    @Test
+    public void testArrayDeque2(){
+        ArrayDeque<Integer> ad=new ArrayDeque<>();
+        ad.addLast(0);
+        ad.addFirst(1);
+        ad.addFirst(2);
+        ad.removeLast();
+        ad.addFirst(4);
+        ad.addFirst(5);
+        ad.addFirst(6);
+        ad.addFirst(7);
+        ad.get(0);
+        ad.addFirst(9);
+        ad.removeLast();
+        ad.get(4);
+        ad.addLast(12);
+        ad.addLast(13);
+        ad.printDeque();
+        ad.addFirst(14);
+    }
 }
+
+
