@@ -231,14 +231,10 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             if (currPtr >= items.length) {
                 currPtr = 0;
             }
-            lastMark = nextLast - 1;
-            if (lastMark < 0) {
-                lastMark = items.length - 1;
-            }
         }
 
         public boolean hasNext() {
-            return (!(currPtr == lastMark));
+            return (!(currPtr == nextLast));
         }
 
         public T next() {
