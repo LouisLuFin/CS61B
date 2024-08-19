@@ -159,13 +159,13 @@ public class LinkedListDequeTest {
     public void testIterator(){
         LinkedListDeque<Integer> lld=new LinkedListDeque<>();
         for (int i=0;i<531;i+=1){
-            lld.addFirst(i+8);
+            lld.addFirst(i);
         }
 
-        Iterator<Integer> iter=lld.iterator();
+        Iterator<Integer> iter1=lld.iterator();
         int idx=0;
-        while (iter.hasNext()) {
-            System.out.println(iter.hasNext() + " for " + idx+" try, giving "+iter.next());
+        while (iter1.hasNext()) {
+            System.out.println(iter1.hasNext() + " for " + idx+" try, giving "+iter1.next());
             idx+=1;
         }
 

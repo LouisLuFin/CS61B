@@ -207,16 +207,16 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (ofirst >= items.length) {
             ofirst = 0;
         }
-        int curridx_o = ofirst;
+        int curridxAlt = ofirst;
         for (int i = 0; i < size; i += 1) {
-            if (items[curridxSelf].equals(o1.items[curridx_o])) {
+            if (items[curridxSelf].equals(o1.items[curridxAlt])) {
                 curridxSelf += 1;
-                curridx_o += 1;
+                curridxAlt += 1;
                 if (curridxSelf >= items.length) {
                     curridxSelf = 0;
                 }
-                if (curridx_o >= items.length) {
-                    curridx_o = 0;
+                if (curridxAlt >= items.length) {
+                    curridxAlt = 0;
                 }
             } else {
                 return false;

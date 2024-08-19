@@ -14,18 +14,6 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         size = 0;
     }
 
-    private class myDequeNode {
-        public myDequeNode prev;
-        public T item;
-        public myDequeNode next;
-
-        public myDequeNode(T i, myDequeNode n, myDequeNode p) {
-            item = i;
-            next = n;
-            prev = p;
-        }
-    }
-
     private void printNode(myDequeNode node) {
         System.out.println(node.item);
     }
@@ -57,10 +45,10 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
 
     private void insert(T item, int idx) {
         myDequeNode currNode = getNode(idx);
-        myDequeNode prev_ptr = currNode.prev;
-        myDequeNode newNode = new myDequeNode(item, currNode, prev_ptr);
+        myDequeNode prevPtr = currNode.prev;
+        myDequeNode newNode = new myDequeNode(item, currNode, prevPtr);
         currNode.prev = newNode;
-        prev_ptr.next = newNode;
+        prevPtr.next = newNode;
         size += 1;
     }
 
@@ -70,10 +58,10 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         } else {
             myDequeNode removedNode = getNode(idx);
             T removedItem = removedNode.item;
-            myDequeNode prev_ptr = removedNode.prev;
-            myDequeNode next_ptr = removedNode.next;
-            prev_ptr.next = next_ptr;
-            next_ptr.prev = prev_ptr;
+            myDequeNode prevPtr = removedNode.prev;
+            myDequeNode nextPtr = removedNode.next;
+            prevPtr.next = nextPtr;
+            nextPtr.prev = prevPtr;
             size -= 1;
             return removedItem;
         }
@@ -85,7 +73,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
                 idx = translateNegativeIndex(idx);
             }
             if (Math.abs(idx) > size) {
-                throw new ArrayIndexOutOfBoundsException("Index out of bound, idx parameter should not exceed array size " + size);
+                throw new ArrayIndexOutOfBoundsException("Index out of bound, idx not exceed " + size);
             }
 
         }
@@ -121,14 +109,13 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
 
-    public T getRecursive(int idx){
+    public T getRecursive(int idx) {
         return getRecursiveNode(idx).item;
     }
 
-
     private int translateNegativeIndex(int idx) {
         if (idx > 0) {
-            throw new IllegalArgumentException("Positive Index Number should not enter translateNegativeIndex() method");
+            throw new IllegalArgumentException("Positive idx not enter translateNegativeIndex() method");
         }
         return size + 1 + idx;
     }
@@ -177,7 +164,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         private myDequeNode currPtr;
 
         public LinkedListDequeIterator() {
-            currPtr = frontSentinel.next;
+            currPtr = frontSentinel;
         }
 
         public boolean hasNext() {
@@ -187,14 +174,24 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         public T next() {
             T retVal;
             if (hasNext()) {
-                retVal=currPtr.next.item;
-                currPtr=currPtr.next;
+                retVal = currPtr.next.item;
+                currPtr = currPtr.next;
                 return retVal;
-            }else {
+            } else {
                 return null;
             }
         }
     }
+    private class myDequeNode {
+        private myDequeNode prev;
+        private T item;
+        private myDequeNode next;
 
+        public myDequeNode(T i, myDequeNode n, myDequeNode p) {
+            item = i;
+            next = n;
+            prev = p;
+        }
+    }
 
 }
