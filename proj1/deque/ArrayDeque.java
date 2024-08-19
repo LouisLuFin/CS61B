@@ -44,7 +44,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
             destPos += 1;
         }
         items = a;
-        nextFirst = 0 - 1;
+        nextFirst = -1;
         nextLast = destPos;
         nextFirst = idxTurnAroundCheck(nextFirst);
         nextLast = idxTurnAroundCheck(nextLast);
@@ -188,42 +188,26 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     public boolean equals(Object o) {
-        if (!(o instanceof ArrayDeque)) {
+        Deque<T> o1=null;
+        if (!(o instanceof Deque)) {
             return false;
-        } else {
-            ArrayDeque<T> o1 = (ArrayDeque<T>) o;
-            if (o1.size() != size) {
-                return false;
-            }
+        } else if (o instanceof ArrayDeque){
+            o1=(ArrayDeque) o;
+        } else if (o instanceof LinkedListDeque) {
+            o1=(LinkedListDeque) o;
         }
-        int firstSelf = nextFirst + 1;
-        if (firstSelf >= items.length) {
-            firstSelf = 0;
+        if (o1.size() != size) {
+            return false;
         }
-        ArrayDeque<T> o1 = (ArrayDeque<T>) o;
-        int curridxSelf = firstSelf;
 
-        int ofirst = o1.nextFirst + 1;
-        if (ofirst >= items.length) {
-            ofirst = 0;
-        }
-        int curridxAlt = ofirst;
         for (int i = 0; i < size; i += 1) {
-            if (items[curridxSelf].equals(o1.items[curridxAlt])) {
-                curridxSelf += 1;
-                curridxAlt += 1;
-                if (curridxSelf >= items.length) {
-                    curridxSelf = 0;
-                }
-                if (curridxAlt >= items.length) {
-                    curridxAlt = 0;
-                }
-            } else {
+            if (!(this.get(i).equals(o1.get(i)))) {
                 return false;
             }
         }
         return true;
     }
+
 
     private int idxTurnAroundCheck(int idx) {
         if (idx < 0) {
@@ -237,16 +221,21 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     private class ArrayDequeIterator implements Iterator<T> {
         private int currPtr;
+        private int lastMark;
 
         public ArrayDequeIterator() {
             currPtr = nextFirst + 1;
             if (currPtr >= items.length) {
                 currPtr = 0;
             }
+            lastMark = nextLast - 1;
+            if (lastMark < 0) {
+                lastMark = items.length - 1;
+            }
         }
 
         public boolean hasNext() {
-            return currPtr < size;
+            return !(currPtr == lastMark);
         }
 
         public T next() {
