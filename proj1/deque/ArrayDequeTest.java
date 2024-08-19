@@ -45,26 +45,11 @@ public class ArrayDequeTest {
     @Test
     public void testArrayDeque2(){
         ArrayDeque<Integer> ad=new ArrayDeque<>();
-        ad.addFirst(0);
-        ad.get(0);
-        ad.removeFirst();
-        ad.addFirst(3);
-        ad.addLast(4);
-        ad.addLast(5);
-        ad.addLast(6);
-        ad.addLast(7);
-        ad.addLast(8);
-        ad.addLast(9);
-        ad.removeFirst();
-        ad.addFirst(11);
-        ad.addLast(12);
-        ad.addLast(13);
-        ad.removeFirst();
-        ad.removeFirst();
-        ad.get(5);
-        ad.removeFirst();
-        ad.removeLast();
-        ad.removeFirst();
+        ad.addFirst(454);
+        ArrayDeque<Integer> cd=new ArrayDeque<>();
+        LinkedListDeque lld=new LinkedListDeque<>();
+        lld.addFirst(456);
+        System.out.println(ad.equals(lld));
     }
 }
 

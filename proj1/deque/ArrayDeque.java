@@ -56,7 +56,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         if (items.length / sizeMultiplier >= minUnitSize && size <= items.length / sizeMultiplier) {
             capacity = items.length / sizeMultiplier;
         } else {
-            throw new IllegalArgumentException("capacity below minimum unitSize or larger than half of original length, should not call extractSize()");
+            throw new IllegalArgumentException("capacity too small or large, no extractSize()");
         }
 
         T[] a = (T[]) new Object[capacity];
@@ -226,7 +226,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         private int currPtr;
         private int lastMark;
 
-        public ArrayDequeIterator() {
+        ArrayDequeIterator() {
             currPtr = nextFirst + 1;
             if (currPtr >= items.length) {
                 currPtr = 0;
@@ -238,7 +238,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         }
 
         public boolean hasNext() {
-            return !(currPtr == lastMark);
+            return (!(currPtr == lastMark));
         }
 
         public T next() {

@@ -3,18 +3,18 @@ package deque;
 import java.util.Iterator;
 
 public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
-    private final myDequeNode frontSentinel;
-    private final myDequeNode backSentinel;
+    private final MyDequeNode frontSentinel;
+    private final MyDequeNode backSentinel;
     private int size;
 
     public LinkedListDeque() {
-        frontSentinel = new myDequeNode((T) "beginning", null, null);
-        backSentinel = new myDequeNode((T) "ending", null, frontSentinel);
+        frontSentinel = new MyDequeNode((T) "beginning", null, null);
+        backSentinel = new MyDequeNode((T) "ending", null, frontSentinel);
         frontSentinel.next = backSentinel;
         size = 0;
     }
 
-    private void printNode(myDequeNode node) {
+    private void printNode(MyDequeNode node) {
         System.out.println(node.item);
     }
 
@@ -44,9 +44,9 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     private void insert(T item, int idx) {
-        myDequeNode currNode = getNode(idx);
-        myDequeNode prevPtr = currNode.prev;
-        myDequeNode newNode = new myDequeNode(item, currNode, prevPtr);
+        MyDequeNode currNode = getNode(idx);
+        MyDequeNode prevPtr = currNode.prev;
+        MyDequeNode newNode = new MyDequeNode(item, currNode, prevPtr);
         currNode.prev = newNode;
         prevPtr.next = newNode;
         size += 1;
@@ -56,10 +56,10 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if (size == 0) {
             return null;
         } else {
-            myDequeNode removedNode = getNode(idx);
+            MyDequeNode removedNode = getNode(idx);
             T removedItem = removedNode.item;
-            myDequeNode prevPtr = removedNode.prev;
-            myDequeNode nextPtr = removedNode.next;
+            MyDequeNode prevPtr = removedNode.prev;
+            MyDequeNode nextPtr = removedNode.next;
             prevPtr.next = nextPtr;
             nextPtr.prev = prevPtr;
             size -= 1;
@@ -67,17 +67,17 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
 
-    private myDequeNode getNode(int idx) {
+    private MyDequeNode getNode(int idx) {
         if (size != 0) {
             if (idx < 0) {
                 idx = translateNegativeIndex(idx);
             }
             if (Math.abs(idx) > size) {
-                throw new ArrayIndexOutOfBoundsException("Index out of bound, idx not exceed " + size);
+                throw new ArrayIndexOutOfBoundsException("Idx not exceed " + size);
             }
 
         }
-        myDequeNode currNode;
+        MyDequeNode currNode;
         if (idx > size / 2) {
             currNode = backSentinel;
             for (int i = size; i > idx; i -= 1) {
@@ -101,7 +101,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
 
-    private myDequeNode getRecursiveNode(int idx) {
+    private MyDequeNode getRecursiveNode(int idx) {
         if (idx == 0) {
             return this.frontSentinel.next;
         } else {
@@ -115,7 +115,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
 
     private int translateNegativeIndex(int idx) {
         if (idx > 0) {
-            throw new IllegalArgumentException("Positive idx not enter translateNegativeIndex() method");
+            throw new IllegalArgumentException("No positive idx");
         }
         return size + 1 + idx;
     }
@@ -125,7 +125,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if (size() == 0) {
             System.out.println("Empty LinkedListDeque");
         } else {
-            myDequeNode currentNode = frontSentinel.next;
+            MyDequeNode currentNode = frontSentinel.next;
             while (currentNode != backSentinel) {
                 System.out.print(currentNode.item + " ");
                 currentNode = currentNode.next;
@@ -148,7 +148,7 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         if (o1.size() != size) {
             return false;
         }
-        myDequeNode currNodeSelf = frontSentinel.next;
+        MyDequeNode currNodeSelf = frontSentinel.next;
         for (int i = 0; i < size; i += 1) {
             if (!(currNodeSelf.item.equals(o1.get(i)))) {
                 return false;
@@ -167,9 +167,9 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
 
     private class LinkedListDequeIterator implements Iterator<T> {
 
-        private myDequeNode currPtr;
+        private MyDequeNode currPtr;
 
-        public LinkedListDequeIterator() {
+        LinkedListDequeIterator() {
             currPtr = frontSentinel;
         }
 
@@ -189,16 +189,15 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
         }
     }
 
-    private class myDequeNode {
-        myDequeNode next;
-        private myDequeNode prev;
+    private class MyDequeNode {
+        MyDequeNode next;
+        private MyDequeNode prev;
         private final T item;
 
-        public myDequeNode(T i, myDequeNode n, myDequeNode p) {
+        MyDequeNode(T i, MyDequeNode n, MyDequeNode p) {
             item = i;
             next = n;
             prev = p;
         }
     }
-
 }

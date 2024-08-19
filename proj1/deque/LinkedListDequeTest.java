@@ -148,11 +148,14 @@ public class LinkedListDequeTest {
     public void testequal(){
         LinkedListDeque<Integer> a=new LinkedListDeque<>();
         LinkedListDeque<Integer> b=new LinkedListDeque<>();
+        ArrayDeque<Integer>c=new ArrayDeque<>();
         for (int i=0;i<10000;i+=1){
             a.addFirst(i);
             b.addFirst(i);
+            c.addFirst(i);
         }
         assertEquals("not equal",a.equals(b),true);
+        assertEquals("not equal",a.equals(c),true);
     }
 
     @Test
