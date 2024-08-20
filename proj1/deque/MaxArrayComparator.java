@@ -7,9 +7,8 @@ public class MaxArrayComparator<T> implements Comparator<T> {
     public int compare(T o1, T o2) {
         if (o1 instanceof Comparable && o2 instanceof Comparable) {
             return ((Comparable<T>) o1).compareTo(o2);
-        } else {
-            return 0;
         }
+        return 0;
     }
 }
 
