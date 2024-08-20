@@ -20,7 +20,6 @@ public class MaxArrayTest {
         ad.addFirst(1545);
         ad.addLast(9458);
         ad.addFirst(1545);
-        ad.max();
         System.out.println(ad.max());
         ad.printDeque();
     }
@@ -32,7 +31,10 @@ public class MaxArrayTest {
         MaxArrayDeque<Integer> acc=new MaxArrayDeque<>(c);
         System.out.println(acc.max());
         String aaa="wbqudqf";
-
+        String bbb="ewuifgbwebfWEBFBEWFWENRFWKnfewbfnwebf";
+        String ccc="ewdj";
+        System.out.println(aaa.compareTo(bbb));
+        System.out.println(aaa.compareTo(ccc));
     }
 
 
