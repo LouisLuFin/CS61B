@@ -8,7 +8,9 @@ import java.util.Iterator;
 import static org.junit.Assert.*;
 
 
-/** Performs some basic linked list tests. */
+/**
+ * Performs some basic linked list tests.
+ */
 public class LinkedListDequeTest {
 
     @Test
@@ -104,8 +106,8 @@ public class LinkedListDequeTest {
 
         boolean passed1 = false;
         boolean passed2 = false;
-        assertEquals("Should return null when removeFirst is called on an empty Deque,", null, lld1.removeFirst());
-        assertEquals("Should return null when removeLast is called on an empty Deque,", null, lld1.removeLast());
+        assertNull("Should return null when removeFirst is called on an empty Deque,", lld1.removeFirst());
+        assertNull("Should return null when removeLast is called on an empty Deque,", lld1.removeLast());
 
     }
 
@@ -154,8 +156,8 @@ public class LinkedListDequeTest {
             b.addFirst(i);
             c.addFirst(i);
         }
-        assertEquals("not equal", a.equals(b), true);
-        assertEquals("not equal", a.equals(c), true);
+        assertTrue("not equal", a.equals(b));
+        assertTrue("not equal", a.equals(c));
     }
 
     @Test
@@ -180,9 +182,9 @@ public class LinkedListDequeTest {
             lld.addLast(i);
         }
 
-        for (int i=0;i< lld.size();i+=1){
-            boolean out=i==lld.get(i);
-            System.out.println(i+" : "+ lld.get(i)+ out);
+        for (int i = 0; i < lld.size(); i += 1) {
+            boolean out = i == lld.get(i);
+            System.out.println(i + " : " + lld.get(i) + out);
         }
 
     }

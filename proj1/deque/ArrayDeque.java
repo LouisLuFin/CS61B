@@ -189,7 +189,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     public boolean equals(Object o) {
         Deque<T> o1;
-        if (o==null){
+        if (o == null) {
             return false;
         }
         if (!(o instanceof Deque)) {
