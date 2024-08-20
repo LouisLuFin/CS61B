@@ -149,12 +149,25 @@ public class LinkedListDeque<T> implements Iterable<T>, Deque<T> {
             return false;
         }
         MyDequeNode currNodeSelf = frontSentinel.next;
+        int idxTract=0;
+        while (currNodeSelf!=backSentinel){
+            if (!(currNodeSelf.item.equals(o1.get(idxTract)))){
+                return false;
+            } else {
+                currNodeSelf=currNodeSelf.next;
+                idxTract+=1;
+            }
+
+        }
+
+        /*
         for (int i = 0; i < size; i += 1) {
             if (!(currNodeSelf.item.equals(o1.get(i)))) {
                 return false;
             }
             currNodeSelf = currNodeSelf.next;
         }
+        */
         return true;
 
     }
