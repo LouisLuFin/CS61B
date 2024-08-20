@@ -28,15 +28,14 @@ public class MaxArrayTest {
     @Test
     public void testMaxArray1() {
         MaxArrayComparator<Integer> c = new MaxArrayComparator<>();
-        MaxArrayDeque<Integer> acc=new MaxArrayDeque<>(c);
+        MaxArrayDeque<Integer> acc = new MaxArrayDeque<>(c);
         System.out.println(acc.max());
-        String aaa="wbqudqf";
-        String bbb="ewuifgbwebfWEBFBEWFWENRFWKnfewbfnwebf";
-        String ccc="ewdj";
+        String aaa = "wbqudqf";
+        String bbb = "ewuifgbwebfWEBFBEWFWENRFWKnfewbfnwebf";
+        String ccc = "ewdj";
         System.out.println(aaa.compareTo(bbb));
         System.out.println(aaa.compareTo(ccc));
     }
-
 
 
 }
