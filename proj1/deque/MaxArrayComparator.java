@@ -5,28 +5,14 @@ import java.util.Comparator;
 public class MaxArrayComparator<T> implements Comparator<T> {
     @Override
     public int compare(T o1, T o2) {
-        if (this.minus(o1, o2) < 0) {
-            return -1;
-        } else if (this.minus(o1, o2) > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return Integer.compare(this.minus(o1, o2), 0);
     }
 
-    public <T> Double minus(T t1, T t2) {
-        if (t1 instanceof Number && t2 instanceof Number) {
-            Number castT1 = (Number) t1;
-            Number castT2 = (Number) t2;
-            Double all = castT1.doubleValue() - castT2.doubleValue();
-            return all;
-        } else if (t1 instanceof String && t2 instanceof String) {
-            String castT1 = (String) t1;
-            String castT2 = (String) t2;
-            int ret = castT1.length() - castT2.length();
-            return (double) ret;
-        } else {
-            return 0.0;
+    public <T> int minus(T t1, T t2) {
+        if (t1 instanceof Comparable && t2 instanceof Comparable) {
+            return ((Comparable<T>) t1).compareTo(t2);
+        }else {
+            return 0;
         }
     }
 }

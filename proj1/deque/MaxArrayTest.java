@@ -2,6 +2,7 @@ package deque;
 
 import org.junit.Test;
 
+
 public class MaxArrayTest {
     @Test
     public void testMaxArray() {
@@ -22,9 +23,18 @@ public class MaxArrayTest {
         ad.max();
         System.out.println(ad.max());
         ad.printDeque();
+    }
 
 
+    @Test
+    public void testMaxArray1() {
+        MaxArrayComparator<Integer> c = new MaxArrayComparator<>();
+        MaxArrayDeque<Integer> acc=new MaxArrayDeque<>(c);
+        System.out.println(acc.max());
+        String aaa="wbqudqf";
 
     }
+
+
 
 }
