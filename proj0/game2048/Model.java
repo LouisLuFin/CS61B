@@ -5,7 +5,7 @@ import java.util.Observable;
 
 
 /** The state of a game of 2048.
- *  @author TODO: YOUR NAME HERE
+ *  @author: Louis
  */
 public class Model extends Observable {
     /** Current contents of the board. */
@@ -107,19 +107,42 @@ public class Model extends Observable {
      *    and the trailing tile does not.
      * */
     public boolean tilt(Side side) {
+        this.board.setViewingPerspective(side);
         boolean changed;
         changed = false;
-
-        // TODO: Modify this.board (and perhaps this.score) to account
-        // for the tilt to the Side SIDE. If the board changed, set the
-        // changed local variable to true.
-
-        checkGameOver();
-        if (changed) {
-            setChanged();
+        int board_size = this.board.size();
+        for (int col=0;col<board_size;col++) {
+            int largest_empty_idx = this.board.size() - 1;
+            int val_top=0;
+            for (int ArrNum = board_size - 1; ArrNum >=0; ArrNum--) {
+                if (this.board.tile(col, ArrNum) != null) {
+                    if (val_top==0 || this.board.tile(col,ArrNum).value()!=val_top){
+                        this.board.move(col, largest_empty_idx, this.tile(col, ArrNum));
+                        if (ArrNum!=largest_empty_idx){
+                            changed=true;
+                        }
+                        val_top=this.board.tile(col,largest_empty_idx).value();
+                        largest_empty_idx-=1;
+                    } else if (this.board.tile(col,ArrNum).value()==val_top) {
+                        this.board.move(col, largest_empty_idx+1, this.tile(col, ArrNum));
+                        this.score=val_top*2+this.score;
+                        val_top=0;
+                        changed=true;
+                    }
+                }
+            }
         }
-        return changed;
-    }
+            // TODO: Modify this.board (and perhaps this.score) to account
+            // for the tilt to the Side SIDE. If the board changed, set the
+            // changed local variable to true.
+            checkGameOver();
+            if (changed) {
+                setChanged();
+            }
+            this.board.setViewingPerspective(Side.NORTH);
+            return changed;
+
+        }
 
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
@@ -137,7 +160,15 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        int board_size= b.size();
+        for (int ColNum=0;ColNum < board_size;ColNum++){
+            for (int ArrNum=0;ArrNum < board_size;ArrNum++){
+                if (b.tile(ColNum,ArrNum)==null){
+                    Tile test_tile=b.tile(ColNum,ArrNum);
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +178,15 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        int board_size=b.size();
+        for (int ColNum=0; ColNum<board_size; ColNum++){
+            for (int ArrNum=0;ArrNum < board_size;ArrNum++){
+                if (b.tile(ColNum,ArrNum)!=null){
+                    if (b.tile(ColNum,ArrNum).value()==MAX_PIECE){
+                        return true;}
+                }
+            }
+        }
         return false;
     }
 
@@ -158,10 +197,44 @@ public class Model extends Observable {
      * 2. There are two adjacent tiles with the same value.
      */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        int board_size=b.size();
+        boolean return_bool=false;
+        return_bool=emptySpaceExists(b);
+        if (return_bool){
+            return true;
+        }
+        int value=0;
+        int value_down=0;
+        int value_right=0;
+            for (int ColNum=0; ColNum<board_size; ColNum++){
+                for (int ArrNum=0;ArrNum < board_size;ArrNum++) {
+                    if (ColNum==board_size-1 && ArrNum==board_size-1) {
+                        return false;
+                    } else if (ColNum==board_size-1 && ArrNum!=board_size-1) {
+                        value=b.tile(ColNum,ArrNum).value();
+                        value_right=b.tile(ColNum,ArrNum+1).value();
+                        if (value==value_right){
+                            return true;
+                        }
+                    } else if (ColNum!=board_size-1 && ArrNum==board_size-1) {
+                        value=b.tile(ColNum,ArrNum).value();
+                        value_down=b.tile(ColNum+1,ArrNum).value();
+                        if (value==value_down){
+                            return true;
+                        }
+                    }
+                    else {
+                        value=b.tile(ColNum,ArrNum).value();
+                        value_right=b.tile(ColNum,ArrNum+1).value();
+                        value_down=b.tile(ColNum+1,ArrNum).value();
+                        if (value==value_down || value==value_right){
+                            return true;
+                        }
+                    }
+                }
+            }
         return false;
     }
-
 
     @Override
      /** Returns the model as a string, used for debugging. */
